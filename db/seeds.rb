@@ -23,62 +23,56 @@ students.each do |student|
     student.assignments.create([
         {
         name: "JS",
-        grade: 0,
+        grade: Faker::Number.between(from: 52, to: 102),
         due_date: Faker::Date.forward(days: 14),
         date_submitted: nil,
         resubmit: false,
         comment: nil
     }, {
         name: "Ruby",
-        grade: 0,
+        grade: Faker::Number.between(from: 52, to: 102),
         due_date: Faker::Date.forward(days: 21),
         date_submitted: nil,
         resubmit: false,
         comment: nil
-    }
     }, {
         name: "HTML",
-        grade: 0,
+        grade: Faker::Number.between(from: 52, to: 102),
         due_date: Faker::Date.forward(days: 2),
         date_submitted: nil,
         resubmit: false,
         comment: nil
-    }
     }, {
         name: "CSS",
-        grade: 0,
+        grade: Faker::Number.between(from: 52, to: 102),
         due_date: Faker::Date.forward(days: 5),
         date_submitted: nil,
         resubmit: false,
         comment: nil
-    }
     }, {
         name: "Data Structure",
-        grade: 0,
+        grade: Faker::Number.between(from: 52, to: 102),
         due_date: Faker::Date.forward(days: 21),
         date_submitted: nil,
         resubmit: false,
         comment: nil
-    }
     }, {
         name: "Algorithms",
-        grade: 0,
+        grade: Faker::Number.between(from: 52, to: 102),
         due_date: Faker::Date.forward(days: 21),
         date_submitted: nil,
         resubmit: false,
         comment: nil
-    }
     }, {
         name: "Python",
-        grade: 0,
+        grade: Faker::Number.between(from: 52, to: 102),
         due_date: Faker::Date.forward(days: 14),
         date_submitted: nil,
         resubmit: false,
         comment: nil
-    }
     }, {
         name: "C++",
-        grade: 0,
+        grade: Faker::Number.between(from: 52, to: 102),
         due_date: Faker::Date.forward(days: 10),
         date_submitted: nil,
         resubmit: false,
@@ -87,4 +81,12 @@ students.each do |student|
     ])
 end
 
+course_assigments = Assignment.all
+all_assign = []
 
+course_assigments.map do |assignment|
+    all_assign.push(assignment[:name])
+    all_assign.uniq!
+end
+ 
+course.update(assignments: all_assign)
