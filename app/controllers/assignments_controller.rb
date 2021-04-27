@@ -19,14 +19,14 @@ class AssignmentsController < ApplicationController
     students = Student.all
 
     students.each do |student|
-    student.assignments.create(assignment_params)
+      student.assignments.create(assignment_params)
     end
 
     course_assignments = Assignment.all
     all_assign = []
     course_assignments.map do |assignment|
-    all_assign.push(assignment[:name])
-    all_assign.uniq!
+      all_assign.push(assignment[:name])
+      all_assign.uniq!
     end
  
   course = Course.find(1)
@@ -50,7 +50,14 @@ class AssignmentsController < ApplicationController
 
   # DELETE /assignments/1
   def destroy
-    @assignment.destroy
+    course_assignments = Assignment.all
+
+
+    # @assignment.destroy
+  end
+# DELETE /name
+  def destroy_all
+
   end
 
   def destroy_all
