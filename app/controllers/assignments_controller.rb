@@ -15,13 +15,28 @@ class AssignmentsController < ApplicationController
 
   # POST /assignments
   def create
-    @assignment = Assignment.new(assignment_params)
+    # @assignment = Assignment.new(assignment_params)
+    students = Student.all
 
-    if @assignment.save
-      render json: @assignment, status: :created, location: @assignment
-    else
-      render json: @assignment.errors, status: :unprocessable_entity
+    students.each do |student|
+    student.assignments.create(assignment_params)
     end
+
+    course_assigments = Assignment.all
+    all_assign = []
+    course_assigments.map do |assignment|
+    all_assign.push(assignment[:name])
+    all_assign.uniq!
+    end
+ 
+  course = Course.find(1)
+  course.update(assignments: all_assign)
+
+#     if @assignment.save
+#       render json: @assignment, status: :created, location: @assignment
+#     else
+#       render json: @assignment.errors, status: :unprocessable_entity
+#     end
   end
 
   # PATCH/PUT /assignments/1
