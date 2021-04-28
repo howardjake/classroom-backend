@@ -4,6 +4,11 @@ class AssignmentMastersController < ApplicationController
   # GET /assignment_masters
   def index
     @assignment_masters = AssignmentMaster.all
+    
+    @assignment_masters.each do |master|
+      average = assignment_average(master.id)
+      master.average = average
+    end
 
     render json: @assignment_masters
   end
@@ -11,15 +16,12 @@ class AssignmentMastersController < ApplicationController
   # GET /assignment_masters/1
   def show
     average = assignment_average(params[:id])
-    show = {@assignment_master}
+    show = @assignment_master
     show["average"] = average
-    # respond_to do
-    #   json @assignment_master
-    #   json {:average => average}
-    # end
-    render json: show.to_json
+    render json: show, :methods => :average 
   end
 
+  # grabs the average grad of the assignment from all students
   def assignment_average id
     assignments = Assignment.where(assignment_master_id: id)
     grades = []
@@ -28,7 +30,7 @@ class AssignmentMastersController < ApplicationController
       grades << assignment.grade
     end
     
-    return grades.reduce {|sum, n| sum + n}/grades.length
+    average = grades.reduce {|sum, n| sum + n}/grades.length
   end
 
   # POST /assignment_masters
