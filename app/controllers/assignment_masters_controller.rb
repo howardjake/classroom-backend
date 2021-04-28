@@ -16,40 +16,36 @@ class AssignmentMastersController < ApplicationController
   # POST /assignment_masters
   def create
 
-    AssignmentMaster.create(assignment_master_params)
+    @assignment_master = AssignmentMaster.new(assignment_master_params)
 
-   assign()
+    assign()
   
-
-
-    # @assignment_master = AssignmentMaster.new(assignment_master_params)
-
-    # if @assignment_master.save
-    #   render json: @assignment_master, status: :created, location: @assignment_master
-    # else
-    #   render json: @assignment_master.errors, status: :unprocessable_entity
-    # end
+    if @assignment_master.save
+      render json: @assignment_master, status: :created, location: @assignment_master
+    else
+      render json: @assignment_master.errors, status: :unprocessable_entity
+    end
   end
-def assign
-  new_assignment = AssignmentMaster.find_or_create_by(name: assignment_master_params[:name])
+# Creates all assignments in assignment model
+  def assign
+    new_assignment = AssignmentMaster.  find_or_create_by(name:   assignment_master_params[:name])
 
-  students = Student.all
-  name = new_assignment.name
-  id = new_assignment.id
-    students.each do |student| 
-        student.assignments.create({
-        name: name,
-        grade: Faker::Number.between(from: 52, to: 102),
-        due_date: Faker::Date.forward(days: 14),
-        date_submitted: nil,
-        resubmit: false,
-        comment: nil,
-        assignment_master_id: id
-    })
-   end
-  p new_assignment.id
-  
-end
+    students = Student.all
+    name = new_assignment.name
+    id = new_assignment.id
+      students.each do |student| 
+          student.assignments.create({
+          name: name,
+          grade: Faker::Number.between(from: 52,  to: 102),
+          due_date: Faker::Date.forward(days: 14),
+          date_submitted: nil,
+          resubmit: false,
+          comment: nil,
+          assignment_master_id: id
+      })
+     end
+  end
+
   # PATCH/PUT /assignment_masters/1
   def update
     if @assignment_master.update(assignment_master_params)

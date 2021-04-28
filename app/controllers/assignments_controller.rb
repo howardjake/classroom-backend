@@ -15,28 +15,13 @@ class AssignmentsController < ApplicationController
 
   # POST /assignments
   def create
-    # @assignment = Assignment.new(assignment_params)
-    students = Student.all
-
-    students.each do |student|
-      student.assignments.create(assignment_params)
+    @assignment = Assignment.new(assignment_params)
+  
+    if @assignment.save
+      render json: @assignment, status: :created, location: @assignment
+    else
+      render json: @assignment.errors, status: :unprocessable_entity
     end
-
-    course_assignments = Assignment.all
-    all_assign = []
-    course_assignments.map do |assignment|
-      all_assign.push(assignment[:name])
-      all_assign.uniq!
-    end
- 
-  course = Course.find(1)
-  course.update(assignments: all_assign)
-
-#     if @assignment.save
-#       render json: @assignment, status: :created, location: @assignment
-#     else
-#       render json: @assignment.errors, status: :unprocessable_entity
-#     end
   end
 
   # PATCH/PUT /assignments/1
@@ -51,15 +36,6 @@ class AssignmentsController < ApplicationController
   # DELETE /assignments/1
   def destroy
     @assignment.destroy
-  end
-
-  def destroy_all
-      students = Student.each
-
-      students.each do |student|
-      student.assignments.where(name: assignment_params).destroy_all
-    end
-
   end
 
   private
