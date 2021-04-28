@@ -53,6 +53,15 @@ class AssignmentsController < ApplicationController
     @assignment.destroy
   end
 
+  def destroy_all
+      students = Student.each
+
+      students.each do |student|
+      student.assignments.where(name: assignment_params).destroy_all
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
