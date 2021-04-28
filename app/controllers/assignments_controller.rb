@@ -50,14 +50,7 @@ class AssignmentsController < ApplicationController
 
   # DELETE /assignments/1
   def destroy
-    course_assignments = Assignment.all
-
-
-    # @assignment.destroy
-  end
-# DELETE /name
-  def destroy_all
-
+    @assignment.destroy
   end
 
   private
