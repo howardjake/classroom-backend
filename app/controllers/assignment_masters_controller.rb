@@ -46,6 +46,7 @@ class AssignmentMastersController < ApplicationController
       render json: @assignment_master.errors, status: :unprocessable_entity
     end
   end
+
 # Creates all assignments in assignment model
   def assign
     new_assignment = AssignmentMaster.  find_or_create_by(name:   assignment_master_params[:name])
@@ -53,11 +54,12 @@ class AssignmentMastersController < ApplicationController
     students = Student.all
     name = new_assignment.name
     id = new_assignment.id
+    due_date = new_assignment.due_date
       students.each do |student| 
           student.assignments.create({
           name: name,
           grade: Faker::Number.between(from: 52,  to: 102),
-          due_date: Faker::Date.forward(days: 14),
+          due_date: due_date,
           date_submitted: nil,
           resubmit: false,
           comment: nil,
@@ -92,6 +94,6 @@ class AssignmentMastersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def assignment_master_params
-      params.require(:assignment_master).permit(:name, :description)
+      params.require(:assignment_master).permit(:name, :description, :due_date)
     end
 end

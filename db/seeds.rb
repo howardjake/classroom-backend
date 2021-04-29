@@ -20,19 +20,23 @@ end
 AssignmentMaster.create([
     {
     name: "JS",
-    description: "do the thing!"
+    description: "do the thing!",
+    due_date: Faker::Date.forward(days: 14)
 },
     {
     name: "Ruby",
-    description: "do the thing!"
+    description: "do the thing!",
+    due_date: Faker::Date.forward(days: 14)
 },
     {
     name: "Python",
-    description: "do the thing!"
+    description: "do the thing!",
+    due_date: Faker::Date.forward(days: 14)
 },
     {
     name: "HTML",
-    description: "do the thing!"
+    description: "do the thing!",
+    due_date: Faker::Date.forward(days: 14)
 },
 ])
 
@@ -43,11 +47,12 @@ masters = AssignmentMaster.all
 masters.each do |master|
         id = master.id
         name = master.name
+        due_date = master.due_date
     students.each do |student| 
         student.assignments.create({
         name: name,
         grade: Faker::Number.between(from: 52, to: 102),
-        due_date: Faker::Date.forward(days: 14),
+        due_date: due_date,
         date_submitted: nil,
         resubmit: false,
         comment: nil,
