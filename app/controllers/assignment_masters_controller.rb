@@ -35,8 +35,11 @@ class AssignmentMastersController < ApplicationController
 
   # POST /assignment_masters
   def create
+    course = Course.find(1)
 
-    @assignment_master = AssignmentMaster.new(assignment_master_params)
+    @assignment_master = course.assignment_masters.create(assignment_master_params)
+
+    # @assignment_master = AssignmentMaster.new(assignment_master_params)
 
     assign()
   
