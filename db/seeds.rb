@@ -6,18 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Course.create(assignments:[], period:"Computer Science")
+Course.create(assignments:[], period:"Computer Science", uid: "gdjfvbkdovv6489820fm")
 course = Course.find(1)
 
 30.times do
     course.students.create(
         name: Faker::TvShows::FamilyGuy.character,
         email: Faker::Internet.email,
-        comment: "new student"
+        comment: "new student",
     )   
 end
 
-AssignmentMaster.create([
+course.assignment_masters.create([
     {
     name: "JS",
     description: "do the thing!",
