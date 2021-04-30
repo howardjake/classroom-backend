@@ -5,6 +5,7 @@ class DashboardController < ApplicationController
         assignments_list = course.assignments
         start_date = course.start_date
         end_date = course.end_date
+        number_of_students: Student.count
         
 
         students = Student.all
@@ -42,7 +43,9 @@ class DashboardController < ApplicationController
             name: name, 
             assignments: assignments_list, 
             start_date: start_date,
-            end_date: end_date 
+            end_date: end_date,
+            number_of_students: number_of_students,
+            schedule: 
         }
     end
 end

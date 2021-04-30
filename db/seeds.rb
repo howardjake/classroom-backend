@@ -10,7 +10,14 @@ Course.create(
     assignments:[], period:"Computer Science", 
     uid: "gdjfvbkdovv6489820fm", 
     start_date: "2021-03-02",
-    end_date: "2021-11-06")
+    end_date: "2021-11-06",
+    schedule: [
+        "Monday 2pm - 4:30pm",
+        "Tuesday 2pm - 4:30pm",
+        "Wednesday 2pm - 4:30pm",
+        "Thursday 2pm - 4:30pm",
+        "Friday 2pm - 4:30pm",
+                ])
 course = Course.find(1)
 
 30.times do
