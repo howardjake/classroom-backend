@@ -79,6 +79,12 @@ class AssignmentMastersController < ApplicationController
   # PATCH/PUT /assignment_masters/1
   def update
     if @assignment_master.update(assignment_master_params)
+
+      name = @assignment_master.name
+      due_date = @assignment_master.due_date
+      
+      Assignment.where(assignment_master: params[:id]).update(name: name, due_date: due_date)
+
       render json: @assignment_master
     else
       render json: @assignment_master.errors, status: :unprocessable_entity
