@@ -43,13 +43,13 @@ class AssignmentMastersController < ApplicationController
     course = Course.find(1)
 
     @assignment_master = course.assignment_masters.create(assignment_master_params)
-
+    @assignment_masters = AssignmentMaster.all
     # @assignment_master = AssignmentMaster.new(assignment_master_params)
 
     assign()
   
     if @assignment_master.save
-      render json: @assignment_master, status: :created, location: @assignment_master
+      render json: @assignment_masters, status: :created, location: @assignment_master
     else
       render json: @assignment_master.errors, status: :unprocessable_entity
     end
