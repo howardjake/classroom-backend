@@ -6,80 +6,122 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Course.create(assignments:[], period:"Computer Science")
+Course.create(assignments:[], period:"Computer Science", uid: "gdjfvbkdovv6489820fm")
 course = Course.find(1)
 
 30.times do
     course.students.create(
         name: Faker::TvShows::FamilyGuy.character,
         email: Faker::Internet.email,
-        comment: "new student"
+        comment: "new student",
     )   
 end
 
+course.assignment_masters.create([
+    {
+    name: "JS",
+    description: "do the thing!",
+    due_date: Faker::Date.forward(days: 14)
+},
+    {
+    name: "Ruby",
+    description: "do the thing!",
+    due_date: Faker::Date.forward(days: 14)
+},
+    {
+    name: "Python",
+    description: "do the thing!",
+    due_date: Faker::Date.forward(days: 14)
+},
+    {
+    name: "HTML",
+    description: "do the thing!",
+    due_date: Faker::Date.forward(days: 14)
+},
+])
+
 students = Student.all
 
-students.each do |student|
-    student.assignments.create([
-        {
-        name: "JS",
+masters = AssignmentMaster.all
+
+masters.each do |master|
+        id = master.id
+        name = master.name
+        due_date = master.due_date
+    students.each do |student| 
+        student.assignments.create({
+        name: name,
         grade: Faker::Number.between(from: 52, to: 102),
-        due_date: Faker::Date.forward(days: 14),
+        due_date: due_date,
         date_submitted: nil,
         resubmit: false,
-        comment: nil
-    }, {
-        name: "Ruby",
-        grade: Faker::Number.between(from: 52, to: 102),
-        due_date: Faker::Date.forward(days: 21),
-        date_submitted: nil,
-        resubmit: false,
-        comment: nil
-    }, {
-        name: "HTML",
-        grade: Faker::Number.between(from: 52, to: 102),
-        due_date: Faker::Date.forward(days: 2),
-        date_submitted: nil,
-        resubmit: false,
-        comment: nil
-    }, {
-        name: "CSS",
-        grade: Faker::Number.between(from: 52, to: 102),
-        due_date: Faker::Date.forward(days: 5),
-        date_submitted: nil,
-        resubmit: false,
-        comment: nil
-    }, {
-        name: "Data Structure",
-        grade: Faker::Number.between(from: 52, to: 102),
-        due_date: Faker::Date.forward(days: 21),
-        date_submitted: nil,
-        resubmit: false,
-        comment: nil
-    }, {
-        name: "Algorithms",
-        grade: Faker::Number.between(from: 52, to: 102),
-        due_date: Faker::Date.forward(days: 21),
-        date_submitted: nil,
-        resubmit: false,
-        comment: nil
-    }, {
-        name: "Python",
-        grade: Faker::Number.between(from: 52, to: 102),
-        due_date: Faker::Date.forward(days: 14),
-        date_submitted: nil,
-        resubmit: false,
-        comment: nil
-    }, {
-        name: "C++",
-        grade: Faker::Number.between(from: 52, to: 102),
-        due_date: Faker::Date.forward(days: 10),
-        date_submitted: nil,
-        resubmit: false,
-        comment: nil
-    }
-    ])
+        comment: nil,
+        assignment_master_id: id
+    })
+   end
 end
+
+# students.each do |student|
+#     student.assignments.create([
+#         {
+        # name: "JS",
+        # grade: Faker::Number.between(from: 52, to: 102),
+        # due_date: Faker::Date.forward(days: 14),
+        # date_submitted: nil,
+        # resubmit: false,
+        # comment: nil,
+#     }, {
+#         name: "Ruby",
+#         grade: Faker::Number.between(from: 52, to: 102),
+#         due_date: Faker::Date.forward(days: 21),
+#         date_submitted: nil,
+#         resubmit: false,
+#         comment: nil
+#     }, {
+#         name: "HTML",
+#         grade: Faker::Number.between(from: 52, to: 102),
+#         due_date: Faker::Date.forward(days: 2),
+#         date_submitted: nil,
+#         resubmit: false,
+#         comment: nil
+#     }, {
+#         name: "CSS",
+#         grade: Faker::Number.between(from: 52, to: 102),
+#         due_date: Faker::Date.forward(days: 5),
+#         date_submitted: nil,
+#         resubmit: false,
+#         comment: nil
+#     }, {
+#         name: "Data Structure",
+#         grade: Faker::Number.between(from: 52, to: 102),
+#         due_date: Faker::Date.forward(days: 21),
+#         date_submitted: nil,
+#         resubmit: false,
+#         comment: nil
+#     }, {
+#         name: "Algorithms",
+#         grade: Faker::Number.between(from: 52, to: 102),
+#         due_date: Faker::Date.forward(days: 21),
+#         date_submitted: nil,
+#         resubmit: false,
+#         comment: nil
+#     }, {
+#         name: "Python",
+#         grade: Faker::Number.between(from: 52, to: 102),
+#         due_date: Faker::Date.forward(days: 14),
+#         date_submitted: nil,
+#         resubmit: false,
+#         comment: nil
+#     }, {
+#         name: "C++",
+#         grade: Faker::Number.between(from: 52, to: 102),
+#         due_date: Faker::Date.forward(days: 10),
+#         date_submitted: nil,
+#         resubmit: false,
+#         comment: nil
+#     }
+#     ])
+# end
 
 course_assigments = Assignment.all
 all_assign = []
@@ -90,3 +132,19 @@ course_assigments.map do |assignment|
 end
  
 course.update(assignments: all_assign)
+
+# students.each do |student|
+#     student.assignments.create(
+#         {
+#         name: "JS",
+#         grade: Faker::Number.between(from: 52, to: 102),
+#         due_date: Faker::Date.forward(days: 14),
+#         date_submitted: nil,
+#         resubmit: false,
+#         comment: nil,
+#         assignment_master_id: master.id
+#     })
+# end
+
+# Assignment.where(assignment_master_i
+#     d: 1).destroy_all

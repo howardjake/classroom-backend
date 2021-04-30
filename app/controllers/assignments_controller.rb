@@ -16,7 +16,7 @@ class AssignmentsController < ApplicationController
   # POST /assignments
   def create
     @assignment = Assignment.new(assignment_params)
-
+  
     if @assignment.save
       render json: @assignment, status: :created, location: @assignment
     else
@@ -27,7 +27,7 @@ class AssignmentsController < ApplicationController
   # PATCH/PUT /assignments/1
   def update
     if @assignment.update(assignment_params)
-      render json: @assignment
+      render json: get_assignments
     else
       render json: @assignment.errors, status: :unprocessable_entity
     end
@@ -42,6 +42,10 @@ class AssignmentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
       @assignment = Assignment.find(params[:id])
+    end
+
+    def get_assignments
+      Assignment.all
     end
 
     # Only allow a list of trusted parameters through.
