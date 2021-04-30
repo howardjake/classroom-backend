@@ -6,7 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Course.create(assignments:[], period:"Computer Science", uid: "gdjfvbkdovv6489820fm")
+Course.create(
+    assignments:[], period:"Computer Science", 
+    uid: "gdjfvbkdovv6489820fm", 
+    start_date: "2021-03-02",
+    end_date: "2021-11-06")
 course = Course.find(1)
 
 30.times do

@@ -42,11 +42,18 @@ class AssignmentMastersController < ApplicationController
   def create
     course = Course.find(1)
 
+    
     @assignment_master = course.assignment_masters.create(assignment_master_params)
     @assignment_masters = AssignmentMaster.all
     # @assignment_master = AssignmentMaster.new(assignment_master_params)
-
+    
+    new_assignment = AssignmentMaster.  find_or_create_by(name:   assignment_master_params[:name])
     assign()
+
+    assignment_list = course.assignments
+    assignment_list.push(new_assignment.name)
+
+    course.update(assignments: assignment_list)
   
     if @assignment_master.save
       render json: @assignment_masters, status: :created, location: @assignment_master
@@ -62,6 +69,7 @@ class AssignmentMastersController < ApplicationController
     students = Student.all
     name = new_assignment.name
     id = new_assignment.id
+
     due_date = new_assignment.due_date
       students.each do |student| 
           student.assignments.create({
