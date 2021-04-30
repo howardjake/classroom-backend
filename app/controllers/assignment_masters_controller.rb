@@ -26,11 +26,16 @@ class AssignmentMastersController < ApplicationController
     assignments = Assignment.where(assignment_master_id: id)
     grades = []
 
-    assignments.each do |assignment|
-      grades << assignment.grade
+    if grades = []
+      average = 0
+    elsif grades
+      assignments.each do |assignment|
+        grades << assignment.grade
+      end
+      
+      average = grades.reduce {|sum, n| sum + n}/grades.length
     end
-    
-    average = grades.reduce {|sum, n| sum + n}/grades.length
+
   end
 
   # POST /assignment_masters
