@@ -106,6 +106,8 @@ class AssignmentMastersController < ApplicationController
     assignments = Assignment.all
 
     assignments.where(assignment_master_id: params[:id]).destroy_all
+    
+    index()
   end
 
   private
